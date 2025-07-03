@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChaChing! Habit Cost Calculator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>ChaChing! 💸</h1>
+    <form action="{{ url_for('result') }}" method="POST">
+      <label>Habit Description:</label>
+      <input type="text" name="habit" required>
+
+      <label>Cost per instance ($):</label>
+      <input type="number" name="cost" step="0.01" required>
+
+      <label>How often? (times per time unit)</label>
+      <input type="number" name="frequency" required>
+
+      <label>For how long? (How many time units?)</label>
+      <input type="number" name="duration" required>
+
+      <label>Time unit:</label>
+      <select name="unit" required>
+        <option value="days">Days</option>
+        <option value="weeks">Weeks</option>
+        <option value="months" selected>Months</option>
+        <option value="years">Years</option>
+      </select>
+
+      <input type="submit" value="Calculate 🔥">
+    </form>
+  </div>
+</body>
+</html>

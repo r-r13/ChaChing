@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChaChing! Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>ChaChing! 💸</h1>
+
+    <div class="result-flex">
+      <div class="info-box">
+        <p>Your habit "<strong>{{ habit }}</strong>" added up to:</p>
+        <h2>${{ total }}</h2>
+
+        {% if comparisons %}
+          <h3>That’s enough for:</h3>
+          <ul>
+            {% for item in comparisons %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}">Try another habit</a>
+      </div>
+
+      <div class="chart-box">
+        <canvas id="costChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('costChart').getContext('2d');
+
+    const labels = [];
+    for (let i = 1; i <= {{ duration }}; i++) {
+      labels.push(`{{ unit.capitalize() }} ${i}`);
+    }
+
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'Cumulative Cost ($)',
+        data: {{ cumulative_costs }},
+        fill: false,
+        borderColor: '#3B82F6',
+        backgroundColor: '#3B82F6',
+        tension: 0.3,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+      }]
+    };
+
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#0A2342'
+            }
+          }
+        }
+      }
+    };
+
+    new Chart(ctx, config);
+  </script>
+</body>
+</html>
