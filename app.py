@@ -39,9 +39,9 @@ def result():
     if total_cost >= 500:
         comparisons.append(f"Or a new iPhone SE (~$500)")
     if total_cost >= 200:
-        comparisons.append(f"Or 25 Chipotle burritos 🌯")
+        comparisons.append(f"Or 25 Chipotle burritos 🌯 (~$200)")
     if total_cost >= 100:
-        comparisons.append(f"Or 12 months of Netflix Premium")
+        comparisons.append(f"Or 12 months of Netflix Premium (~$100)")
     
     fun_units = int(total_cost // 5)
     if fun_units > 0:
